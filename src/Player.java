@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player {
@@ -10,15 +11,19 @@ public class Player {
         System.out.println();
         System.out.println("Pick a number 1-9");
         Scanner scanner = new Scanner(System.in);
-        int p1Input = scanner.nextInt();
-        //checks if the number is 1-9 and has not been used
-        if (!usedNums.contains(p1Input) && (0 < p1Input) && (p1Input <= 9)) {
-            usedNums.add(p1Input);
-            int[] rowCol = Board.posToBoardPos.get(p1Input);
-            Board.gameBoard[rowCol[0]][rowCol[1]] = 'X';
-            Board.printBoard();
-        } else {
-            System.out.println("Pick an Available Number Number");
+        try {
+            int p1Input = scanner.nextInt();
+            //checks if the number is 1-9 and has not been used
+            if (!usedNums.contains(p1Input) && (0 < p1Input) && (p1Input <= 9)) {
+                usedNums.add(p1Input);
+                int[] rowCol = Board.posToBoardPos.get(p1Input);
+                Board.gameBoard[rowCol[0]][rowCol[1]] = 'X';
+                Board.printBoard();
+            } else {
+                System.out.println("Pick an Available Number Number");
+                p1Turn();
+            }
+        }catch (InputMismatchException e){
             p1Turn();
         }
     }
@@ -28,18 +33,21 @@ public class Player {
         System.out.println();
         System.out.println("Pick a number 1-9");
         Scanner scanner = new Scanner(System.in);
-        int p2Input = scanner.nextInt();
-        //checks if the number is 1-9 and has not been used
-        if (!usedNums.contains(p2Input) && (0 < p2Input) && (p2Input <= 9)) {
-            usedNums.add(p2Input);
-            int[] rowCol = Board.posToBoardPos.get(p2Input);
-            Board.gameBoard[rowCol[0]][rowCol[1]] = 'O';
-            Board.printBoard();
-        } else {
-            System.out.println("Pick an Available Number");
+        try {
+            int p2Input = scanner.nextInt();
+            //checks if the number is 1-9 and has not been used
+            if (!usedNums.contains(p2Input) && (0 < p2Input) && (p2Input <= 9)) {
+                usedNums.add(p2Input);
+                int[] rowCol = Board.posToBoardPos.get(p2Input);
+                Board.gameBoard[rowCol[0]][rowCol[1]] = 'O';
+                Board.printBoard();
+            } else {
+                System.out.println("Pick an Available Number");
+                p2Turn();
+            }
+        }catch (InputMismatchException e){
             p2Turn();
         }
-
     }
 //game loop
     public void runGame() {
